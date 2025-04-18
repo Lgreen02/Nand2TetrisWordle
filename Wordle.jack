@@ -1,0 +1,120 @@
+class Wordle {
+     field String correctWord;
+     field Array correctPositions;
+     field Array correctLetters;
+     field int currentGuess;
+     field Board board;
+     field String activeWord;
+     field boolean win;
+     //field Response response;
+     constructor Wordle new(String word){
+          let correctWord = word;
+          let correctPositions = Array.new(5);
+          let correctLetters = Array.new(5);
+          let currentGuess = 0;
+          let board = Board.new(5, 6, 30, 20, 3);
+          let win = false;
+          return this;
+     }
+     method boolean allTrue(Array arr) {
+          var int i;
+
+          let i = 0;
+          while (i < 5) {
+               if (arr[i] = false) {
+                    return false;
+               }
+               let i = i + 1;
+          }
+          return true;
+     }
+     method void checkResponse(String response){
+          var String guess;
+          var int i;
+          var int j;
+          var boolean won;
+          let guess = response;
+          let i = 0;
+          while (i < 5){
+          let correctPositions[i] = false;
+          let correctLetters[i] = false;
+          let i = i+1;
+          }
+          let i = 0;
+          while (i < 5){
+               if (correctWord.charAt(i) = guess.charAt(i)){
+                    let correctPositions[i] = true;
+                    
+               }
+               else{
+                    let correctPositions[i] = false;
+               }
+               let i = i + 1;
+          }
+          let i = 0;
+          
+          while(i < 5){
+          let j = 0;
+               while(j < 5){
+                    if (guess.charAt(i) = correctWord.charAt(j)){
+                         let correctLetters[i] = true;
+                    }
+                    let j = j + 1;
+               }
+               let i = i + 1;
+          }
+          
+          let won = allTrue(correctPositions);
+          
+          if (won = true){
+               let win = won;
+               do Output.printString("You Won!");
+          }
+          
+          return;
+     }
+     method void printGuess(){
+          var int i;
+          let i = 0;
+
+          while(i < 5){
+               if (correctPositions[i] = true){
+                    do board.drawX(i, currentGuess);
+               }
+               else{
+                    if(correctLetters[i] = true){
+                         //do Output.printString("found correct letter");
+                         do board.drawPlus(i, currentGuess);
+                    }
+               }
+               let i = i + 1;
+          }
+          let currentGuess = currentGuess + 1;
+          do Screen.setColor(true);
+          return;
+     }
+     method void playGame() {
+          var int key;
+          var String guess;
+          var boolean waiting;
+          let waiting = true;
+          
+          if(currentGuess < 6){
+          //do Output.printString("Type your first Guess: ");
+          let guess = Keyboard.readLine("Type your Guess:");
+          let activeWord = guess;
+          do checkResponse(activeWord);
+          do board.drawBoard();
+          do printGuess();
+          if(win = true){
+               do Output.printString("You Won!    ");
+               return;
+          }
+          do playGame();
+          }
+          else{
+               do Output.printString("Game over");
+          }
+          return;
+     }
+}

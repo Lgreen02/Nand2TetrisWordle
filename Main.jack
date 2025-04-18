@@ -1,0 +1,8 @@
+class Main {
+    function void main() {
+     var Wordle wordle;
+     let wordle = Wordle.new("crane");
+     do wordle.playGame();
+     return;
+    }
+}

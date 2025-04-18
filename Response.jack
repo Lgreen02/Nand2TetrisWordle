@@ -1,0 +1,31 @@
+class Response {
+    field String guess;
+     field Array correctPositions;
+     field Array correctLetters;
+    // constructor to create new Response objects
+    constructor Response new(String text) {
+        let guess = text;
+        let correctPositions = Array.new(5);
+        let correctLetters = Array.new(5);
+        return this;
+    }
+
+    // method to get the response message
+    method String getGuess() {
+        return guess;
+    }
+
+    // method to set/change the response message
+    method void setGuess(String text) {
+        let guess = text;
+        return;
+    }
+    method void setCorrectPositions(Array correct){
+     let correctPositions = correct;
+     return;
+    }
+    method void setCorrectLetters(Array letters){
+     let correctLetters = letters;
+     return;
+    }
+}

@@ -1,0 +1,97 @@
+class Board {
+    field int width, height, gap;
+    field int rows, cols;
+    field int offsetX, offsetY;
+
+    constructor Board new(int colsNew, int rowsNew, int widthNew, int heightNew, int gapNew) {
+        var int totalWidth;
+        var int totalHeight;
+
+        let cols = colsNew;
+        let rows = rowsNew;
+        let width = widthNew;
+        let height = heightNew;
+        let gap = gapNew;
+
+        let totalWidth = (cols * width) + ((cols - 1) * gap);
+        let totalHeight = (rows * height) + ((rows - 1) * gap);
+
+        let offsetX = (512 - totalWidth) / 2;
+        let offsetY = (256 - totalHeight) / 2;
+
+        let offsetX = offsetX;
+        let offsetY = offsetY;
+
+        do Screen.clearScreen();
+        do Screen.setColor(true);
+        //do drawBoard();
+
+        return this;
+    }
+
+    method void drawBoard() {
+        var int row, col, x, y;
+
+        let row = 0;
+        while (row < rows) {
+            let col = 0;
+            while (col < cols) {
+                let x = offsetX + (col * (width + gap));
+                let y = offsetY + (row * (height + gap));
+                do Screen.drawRectangle(x, y, x + width, y + height);
+                let col = col + 1;
+            }
+            let row = row + 1;
+        }
+        return;
+    }
+
+    method void setRectangleColor(int col, int row, boolean color) {
+        var int x, y;
+
+        do Screen.setColor(color);
+        let x = offsetX + (col * (width + gap));
+        let y = offsetY + (row * (height + gap));
+        do Screen.drawRectangle(x, y, x + width, y + height);
+
+        return;
+    }
+
+    method void drawX(int col, int row) {
+        var int centerX, centerY, size;
+
+        // Set drawing color to white
+        do Screen.setColor(false);
+
+        let centerX = offsetX + (col * (width + gap)) + (width / 2);
+        let centerY = offsetY + (row * (height + gap)) + (height / 2);
+        let size = (width / 4);
+
+        // Diagonal top-left to bottom-right
+        do Screen.drawLine(centerX - size, centerY - size, centerX + size, centerY + size);
+
+        // Diagonal bottom-left to top-right
+        do Screen.drawLine(centerX - size, centerY + size, centerX + size, centerY - size);
+
+        return;
+    }
+
+    method void drawPlus(int col, int row) {
+        var int centerX, centerY, size;
+
+        // Set drawing color to white
+        do Screen.setColor(false);
+
+        let centerX = offsetX + (col * (width + gap)) + (width / 2);
+        let centerY = offsetY + (row * (height + gap)) + (height / 2);
+        let size = (width / 4);
+
+        // Vertical line
+        do Screen.drawLine(centerX, centerY - size, centerX, centerY + size);
+
+        // Horizontal line
+        do Screen.drawLine(centerX - size, centerY, centerX + size, centerY);
+
+        return;
+    }
+}
